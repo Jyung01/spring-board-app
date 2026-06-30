@@ -23,7 +23,7 @@ public class ArticleService {
         return null;
     }
     public void register(ArticleDTO dto) {
-
+        dao.insert(dto);
     }
     public void modify(ArticleDTO dto) {}
     public void remove(int ano) {}

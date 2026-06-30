@@ -25,7 +25,7 @@ public class SecurityConfig {
         // 로그인 설정
         httpSecurity.formLogin(form -> form
                         .loginPage("/user/login")
-                        .defaultSuccessUrl("/?login=success")
+                        .defaultSuccessUrl("/article/list")
                         .failureUrl("/user/login?login=fail")
                         .usernameParameter("userid")
                         .passwordParameter("pass")
@@ -41,9 +41,9 @@ public class SecurityConfig {
         //  인가 설정
         httpSecurity.authorizeHttpRequests(authorize -> authorize
                 .requestMatchers("/").permitAll() //루트(/) 경로는 인증없이 모든 요청 허용
-                .requestMatchers("/admin/**").hasRole("ADMIN")
-                .requestMatchers("/manager/**").hasAnyRole("ADMIN", "MANAGER")
-                .requestMatchers("/member/**").hasAnyRole("ADMIN", "MANAGER", "MEMBER")
+                .requestMatchers("/article/**").hasAnyRole("ADMIN", "MANAGER", "MEMBER")
+                //.requestMatchers("/manager/**").hasAnyRole("ADMIN", "MANAGER")
+                //.requestMatchers("/member/**").hasAnyRole("ADMIN", "MANAGER", "MEMBER")
                 .anyRequest().permitAll()
         );
 
