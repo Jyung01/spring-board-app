@@ -1,13 +1,11 @@
 package kr.co.sboard.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import kr.co.sboard.dto.ArticleDTO;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
+import java.awt.image.WritableRaster;
 import java.time.LocalDateTime;
 
 @Getter
@@ -16,6 +14,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Builder
 @Entity
+@Table(name = "article")
 public class Article {
 
     @Id
@@ -27,14 +26,18 @@ public class Article {
     private int comment;
     private int file;
     private int hit;
-    private String writer;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "writer")
+    private User user;
+
     private String regip;
 
     @CreationTimestamp
     private LocalDateTime wdate;
 
 
-    public ArticleDTO toDTO() {
+    public ArticleDTO toDTO(){
         return ArticleDTO.builder()
                 .ano(ano)
                 .type(type)
@@ -43,7 +46,7 @@ public class Article {
                 .comment(comment)
                 .file(file)
                 .hit(hit)
-                .writer(writer)
+                .nick(user.getNick())
                 .regip(regip)
                 .wdate(wdate.toString())
                 .build();

@@ -32,12 +32,12 @@ public class ArticleDTO {
     private MultipartFile file1;
     private MultipartFile file2;
 
-    public List<MultipartFile> getFiles() {
+    public List<MultipartFile> getFiles(){
         return List.of(file1, file2);
     }
 
 
-    public Article toEntity() {
+    public Article toEntity(){
         return Article.builder()
                 .ano(ano)
                 .type(type)
@@ -46,7 +46,6 @@ public class ArticleDTO {
                 .comment(comment)
                 .file(file)
                 .hit(hit)
-                .writer(writer)
                 .regip(regip)
                 .build();
     }

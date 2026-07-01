@@ -1,6 +1,7 @@
-package kr.co.sboard.dao;
+package kr.co.sboard.service;
 
 import kr.co.sboard.dto.ArticleDTO;
+import kr.co.sboard.dto.PageRequestDTO;
 import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,43 +13,18 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @Log4j2
 @SpringBootTest
-class ArticleDAOTest {
+class ArticleServiceTest {
 
     @Autowired
-    private ArticleDAO dao;
+    private ArticleService service;
 
     @Test
-    void insert() {
-
-    }
-
-    @Test
-    void select() {
-    }
-
-    @Test
-    void selectAll() {
-
-//        int start =10;
+    void findAll() {
+//        PageRequestDTO pageRequestDTO = PageRequestDTO.builder().page(2).build();
+//        List<ArticleDTO> dtoList = service.findAll(pageRequestDTO);
 //
-//        List<ArticleDTO> dtoList = dao.selectAll(start);
 //        for (ArticleDTO dto : dtoList) {
 //            log.info(dto);
 //        }
-
-    }
-
-    @Test
-    void selectCountAll() {
-        int total = dao.selectCountAll();
-        log.info(total);
-    }
-
-    @Test
-    void update() {
-    }
-
-    @Test
-    void delete() {
     }
 }
