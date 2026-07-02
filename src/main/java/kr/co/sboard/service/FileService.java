@@ -17,21 +17,22 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-@RequiredArgsConstructor
 @Log4j2
+@RequiredArgsConstructor
 @Service
 public class FileService {
+
     private final FileDAO dao;
     private final FileRepository repository;
 
     @Value("${spring.servlet.multipart.location}")
     private String fileUploadPath;
 
-    public List<FileDTO> upload(ArticleDTO articleDTO) {
+    public List<FileDTO> upload(ArticleDTO articleDTO){
 
         File fileUploadDir = new File(fileUploadPath);
 
-        if(!fileUploadDir.exists()) {
+        if(!fileUploadDir.exists()){
             fileUploadDir.mkdirs();
         }
 
@@ -40,9 +41,10 @@ public class FileService {
         // 반환용 파일 리스트
         List<FileDTO> fileList = new ArrayList<>();
 
-        for (MultipartFile multiFile : articleDTO.getFiles()) {
-            // 파일을 첨부 했을 때
-            if(!multiFile.isEmpty()) {
+        for(MultipartFile multiFile : articleDTO.getFiles()){
+
+            // 파일을 첨부 했으면
+            if(!multiFile.isEmpty()){
                 String ofname = multiFile.getOriginalFilename();
                 String ext = ofname.substring(ofname.lastIndexOf("."));
                 String sfname = UUID.randomUUID().toString() + ext;
@@ -57,30 +59,35 @@ public class FileService {
                             .sfname(sfname)
                             .build();
 
-                    // 리스트에 추가
+                    // 리스트 추가
                     fileList.add(fileDTO);
 
-                } catch (Exception e) {
+                }catch (Exception e) {
                     log.error(e.getMessage());
-                }
-            }
-        }
+                } // try-catch 끝
+            } // if 끝
+        } // for 끝
 
         return fileList;
     }
 
-    public void download() {}
+    public void download(){
 
-    public FileDTO get(int fno) {
+    }
+
+    public FileDTO get(int fno){
         return null;
     }
-    public List<FileDTO> getAll() {
+    public List<FileDTO> getAll(){
         return null;
     }
-    public void register(FileDTO dto) {
+    public void register(FileDTO dto){
+        repository.save(dto.toEntity());
+    }
+    public void modify(FileDTO dto){
 
     }
-    public void modify(FileDTO dto) {}
-    public void remove(int fno) {}
+    public void remove(int fno){
 
+    }
 }
